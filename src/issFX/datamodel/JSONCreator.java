@@ -17,18 +17,18 @@ public interface JSONCreator {
         return string;
     }
 
-    static JSONObject buildJSON() throws Exception  {
-        String str=JSONasString();
-        JSONObject obj=new JSONObject(str);
-        if (!isOnline(obj)){
+    static JSONObject buildJSON() throws Exception {
+        String str = JSONasString();
+        JSONObject obj = new JSONObject(str);
+        if (!isOnline(obj)) {
             return null;
-        } else{
+        } else {
             return obj;
         }
     }
 
-    static boolean isOnline(JSONObject obj){
-        if(!obj.getString("message").equals("success")) {
+    static boolean isOnline(JSONObject obj) {
+        if (!obj.getString("message").equals("success")) {
             System.out.println("Something wrong!");
             return false;
         }

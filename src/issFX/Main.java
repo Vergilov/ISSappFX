@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("iss_checker.fxml"));
         primaryStage.setTitle("ISS Check");
         primaryStage.setScene(new Scene(root, 900, 375));

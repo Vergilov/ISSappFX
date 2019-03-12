@@ -68,37 +68,31 @@ public class Controller {
     }
 
     public Thread newThread() {
-        Thread t = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (true) {
-                    Platform.runLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                resultTextArea.clear();
-                                issCheck.addJSONtoArray();
-                                currentLatitudeTextField.setText(JSONDataOutput.getLatitude(JSONCreator.buildJSON()).toString());
-                                currentLongtitudeTextField.setText(JSONDataOutput.getLongitude(JSONCreator.buildJSON()).toString());
-                                currentSpeedTextField.setText(issCheck.calculateSpeedFromLastTwoPoints());
-                                distanceFromStartTextField.setText(issCheck.calculateOverallDistance());
-                                int count = 0;
-                                for (String str : issCheck.getArrayList()) {
-                                    resultTextArea.appendText(count + ". " + str + "\n");
-                                    count++;
-                                }
-                                resultTextArea.setEditable(false);
-                                wait();
-                            } catch (Exception e) {
-
-                            }
-                        }
-                    });
+        Thread t = new Thread(() -> {
+            while (true) {
+                Platform.runLater(() -> {
                     try {
-                        Thread.sleep(5000);
-                    } catch (InterruptedException ex) {
-                        break;
+                        resultTextArea.clear();
+                        issCheck.addJSONtoArray();
+                        currentLatitudeTextField.setText(JSONDataOutput.getLatitude(JSONCreator.buildJSON()).toString());
+                        currentLongtitudeTextField.setText(JSONDataOutput.getLongitude(JSONCreator.buildJSON()).toString());
+                        currentSpeedTextField.setText(issCheck.calculateSpeedFromLastTwoPoints());
+                        distanceFromStartTextField.setText(issCheck.calculateOverallDistance());
+                        int count = 0;
+                        for (String str : issCheck.getArrayList()) {
+                            resultTextArea.appendText(count + ". " + str + "\n");
+                            count++;
+                        }
+                        resultTextArea.setEditable(false);
+                        wait();
+                    } catch (Exception e) {
+
                     }
+                });
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException ex) {
+                    break;
                 }
             }
         });

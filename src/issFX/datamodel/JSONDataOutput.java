@@ -1,4 +1,5 @@
 package issFX.datamodel;
+
 import org.json.JSONObject;
 
 import static java.lang.Long.valueOf;

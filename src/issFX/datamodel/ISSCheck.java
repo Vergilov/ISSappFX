@@ -11,8 +11,9 @@ import java.util.List;
 
 public class ISSCheck {
     private List<String> arrayList;
+
     public ISSCheck() {
-        this.arrayList =new ArrayList<>();
+        this.arrayList = new ArrayList<>();
     }
 
     public String calculateSpeedFromLastTwoPoints() {
@@ -27,11 +28,11 @@ public class ISSCheck {
         Date lastDate = DataConventer.epochConventer(JSONDataOutput.getTimestamp(lastJSONObject));
         int result = (int) ((distance(lastLatitude, oneBeforeLastLatidue, lastLongtitude, oneBeforeLastLongtitude)) / (DataConventer.differenceTime(oneBeforeLastDate, lastDate)));
 
-        return ""+result ; // distance/ diffrenceTime
+        return "" + result; // distance/ diffrenceTime
     }
 
 
-    private double calculateDistanceBetweenTwoPoints(String one,String two) {
+    private double calculateDistanceBetweenTwoPoints(String one, String two) {
         JSONObject first = createJSONOBject(one);
         double firstLatitude = JSONDataOutput.getLatitude(first);
         double firstLongitude = JSONDataOutput.getLongitude(first);
@@ -42,13 +43,13 @@ public class ISSCheck {
         return distance(secondLatitude, firstLatitude, secondLongtidute, firstLongitude);
     }
 
-    public String calculateOverallDistance(){
-        double result=0;
-        for (int i=0;i<=arrayList.size()-2;i++){
-            double current=calculateDistanceBetweenTwoPoints(arrayList.get(i),arrayList.get(i+1));
-            result+=current;
+    public String calculateOverallDistance() {
+        double result = 0;
+        for (int i = 0; i <= arrayList.size() - 2; i++) {
+            double current = calculateDistanceBetweenTwoPoints(arrayList.get(i), arrayList.get(i + 1));
+            result += current;
         }
-        return ""+(int)result+" KM";
+        return "" + (int) result + " KM";
     }
 
     private JSONObject createJSONOBject(String obj) {
@@ -77,9 +78,6 @@ public class ISSCheck {
         arrayList.add(JSONCreator.buildJSON().toString());
     }
 
-    public void currentStatus() throws Exception {
-        System.out.println("Current Status: "+JSONCreator.buildJSON().toString());
-    }
 
     public void backupToFile() throws Exception {
         ConnectionWithJSON connectionWithJSON = new ConnectionWithJSON();
@@ -87,7 +85,7 @@ public class ISSCheck {
         if (!desktop.exists()) {
             desktop.mkdirs();
         }
-        File output = new File(desktop.getAbsolutePath(),"ISSBackup.json");
+        File output = new File(desktop.getAbsolutePath(), "ISSBackup.json");
         PrintWriter pw = new PrintWriter(new FileWriter(output, true));
 
         try {
@@ -118,7 +116,7 @@ public class ISSCheck {
             for (String inputLine : arrayList) {
                 pw.println(inputLine);
             }
-            System.out.println("Created file: "+output.getAbsolutePath());
+            System.out.println("Created file: " + output.getAbsolutePath());
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
