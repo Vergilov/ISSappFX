@@ -5,13 +5,9 @@ import issFX.datamodel.JSONCreator;
 import issFX.datamodel.JSONDataOutput;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import issFX.datamodel.ISSCheck;
-import org.json.JSONObject;
-
 
 public class Controller {
     @FXML
@@ -26,16 +22,10 @@ public class Controller {
     private TextArea resultTextArea;
     @FXML
     private Label statusLayout;
-    @FXML
-    private Button addButton;
-    @FXML
-    private Button stopButton;
-    @FXML
-    private Button startButton;
 
     private ISSCheck issCheck = new ISSCheck();
-    private boolean running=true;
-    private Thread t=newThread();
+    private boolean running = true;
+    private Thread t = newThread();
 
 
     public void initialize() {
@@ -43,25 +33,27 @@ public class Controller {
         resultTextArea.setEditable(false);
         statusLayout.setText("Online");
         t.setDaemon(true);
-        if(running){
+        if (running) {
             t.start();
         } else {
             try {
                 t.wait();
-            }catch (InterruptedException e){
-
+            } catch (InterruptedException e) {
             }
-
         }
-
-
     }
 
 
-
-
     public void addDataToArrayListButton() throws Exception {
+        int count = 0;
+
         issCheck.addJSONtoArray();
+        resultTextArea.clear();
+        for (String str : issCheck.getArrayList()) {
+            resultTextArea.appendText(count + ". " + str + "\n");
+            count++;
+        }
+        resultTextArea.setEditable(false);
     }
 
     public void stopThreadButton() {
@@ -69,14 +61,14 @@ public class Controller {
     }
 
     public void startThreadButton() {
-        if(!t.isAlive()){
-            t=newThread();
+        if (!t.isAlive()) {
+            t = newThread();
             t.start();
         }
     }
 
     public Thread newThread() {
-         Thread t = new Thread(new Runnable() {
+        Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
                 while (true) {

@@ -2,10 +2,6 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -14,41 +10,31 @@
 <VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
       fx:controller="issFX.Controller">
     <children>
-        <MenuBar VBox.vgrow="NEVER">
-            <menus>
-                <Menu mnemonicParsing="false" text="File">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="Save" />
-                        <MenuItem mnemonicParsing="false" text="Save As…" />
-                        <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem mnemonicParsing="false" text="Quit" />
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Help">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="About ISS Check" />
-                    </items>
-                </Menu>
-            </menus>
-        </MenuBar>
         <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
             <children>
-                <Label layoutX="15.0" layoutY="135.0" prefHeight="27.0" prefWidth="78.0" text="Current Speed" />
-                <Label layoutX="15.0" layoutY="170.0" text="Current Latitude" />
-                <Label layoutX="15.0" layoutY="205.0" text="Current Longtitude" />
-                <Label layoutX="15.0" layoutY="115.0" text="Connection Status" />
-                <Label layoutX="15.0" layoutY="90.0" text="Current data from ISS:" />
-                <Label layoutX="15.0" layoutY="240.0" text="Distance from start" />
-                <Button fx:id="stopButton" layoutX="555.0" layoutY="50.0" mnemonicParsing="false" text="Stop Recording" onAction="#stopThreadButton" />
-                <Button fx:id="startButton" layoutX="450.0" layoutY="50.0" mnemonicParsing="false" text="Start Recording" onAction="#startThreadButton" />
-                <Button fx:id="addButton" layoutX="14.0" layoutY="280.0" mnemonicParsing="false" text="Add Current data of ISS" onAction="#addDataToArrayListButton" />
-                <TextField fx:id="currentSpeedTextField" disable="true" layoutX="120.0" layoutY="138.0" prefHeight="0.0" prefWidth="100.0" />
-                <TextField fx:id="currentLatitudeTextField" disable="true" layoutX="120.0" layoutY="170.0" prefHeight="3.0" prefWidth="100.0" />
-                <TextField fx:id="distanceFromStartTextField" disable="true" layoutX="120.0" layoutY="240.0" prefHeight="10.0" prefWidth="100.0" />
-                <TextField fx:id="currentLongtitudeTextField" disable="true" layoutX="120.0" layoutY="205.0" prefHeight="26.0" prefWidth="100.0" />
+                <Label layoutX="15.0" layoutY="135.0" prefHeight="27.0" prefWidth="78.0" text="Current Speed"/>
+                <Label layoutX="15.0" layoutY="170.0" text="Current Latitude"/>
+                <Label layoutX="15.0" layoutY="205.0" text="Current Longtitude"/>
+                <Label layoutX="15.0" layoutY="115.0" text="Connection Status"/>
+                <Label layoutX="15.0" layoutY="90.0" text="Current data from ISS:"/>
+                <Label layoutX="15.0" layoutY="240.0" text="Distance from start"/>
+                <Button layoutX="555.0" layoutY="50.0" mnemonicParsing="false" text="Stop Recording"
+                        onAction="#stopThreadButton"/>
+                <Button layoutX="450.0" layoutY="50.0" mnemonicParsing="false" text="Start Recording"
+                        onAction="#startThreadButton"/>
+                <Button layoutX="14.0" layoutY="280.0" mnemonicParsing="false" text="Add Current data of ISS"
+                        onAction="#addDataToArrayListButton"/>
+                <TextField fx:id="currentSpeedTextField" disable="true" layoutX="120.0" layoutY="138.0" prefHeight="0.0"
+                           prefWidth="100.0"/>
+                <TextField fx:id="currentLatitudeTextField" disable="true" layoutX="120.0" layoutY="170.0"
+                           prefHeight="3.0" prefWidth="100.0"/>
+                <TextField fx:id="distanceFromStartTextField" disable="true" layoutX="120.0" layoutY="240.0"
+                           prefHeight="10.0" prefWidth="100.0"/>
+                <TextField fx:id="currentLongtitudeTextField" disable="true" layoutX="120.0" layoutY="205.0"
+                           prefHeight="26.0" prefWidth="100.0"/>
                 <TextArea fx:id="resultTextArea" layoutX="269.0" layoutY="96.0" prefHeight="200.0" prefWidth="600.0"/>
-                <Label layoutX="266.0" layoutY="72.0" text="Result of Arraylist:" />
-                <Label fx:id="statusLayout" layoutX="156.0" layoutY="115.0" text="off/on" />
+                <Label layoutX="266.0" layoutY="72.0" text="Result of Arraylist:"/>
+                <Label fx:id="statusLayout" layoutX="156.0" layoutY="115.0" text="off/on"/>
             </children>
         </AnchorPane>
     </children>
