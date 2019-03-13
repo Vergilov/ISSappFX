@@ -5,7 +5,6 @@ import issFX.datamodel.JSONCreator;
 import issFX.datamodel.JSONDataOutput;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
@@ -13,8 +12,6 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -32,8 +29,6 @@ public class Controller {
     private TextArea resultTextArea;
     @FXML
     private javafx.scene.control.Button closeButton;
-    @FXML
-    private Label currentTimeLabel;
 
     private ISSCheck issCheck = new ISSCheck();
 
