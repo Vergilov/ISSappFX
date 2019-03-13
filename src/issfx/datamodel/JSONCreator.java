@@ -1,6 +1,6 @@
-package issFX.datamodel;
+package issfx.datamodel;
 
-import issFX.Controller;
+import issfx.Controller;
 import org.json.JSONObject;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 public interface JSONCreator {
     Logger LOGGER = Logger.getLogger(Controller.class.getName());
 
-    static String JSONasString() throws Exception {
+    static String jsonAsString() throws Exception {
         ConnectionWithJSON json = new ConnectionWithJSON();
         String string = "";
         try (Scanner scan = new Scanner(json.getIn())) {
@@ -24,7 +24,7 @@ public interface JSONCreator {
     }
 
     static JSONObject buildJSON() throws Exception {
-        String str = JSONasString();
+        String str = jsonAsString();
         JSONObject obj = new JSONObject(str);
         if (!isOnline(obj)) {
             return null;

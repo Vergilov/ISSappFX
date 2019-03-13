@@ -1,6 +1,7 @@
-package issFX;
+package issfx;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -16,6 +17,10 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root, 900, 375));
         primaryStage.show();
         primaryStage.getIcons().add(new Image("https://t00.deviantart.net/e12ENEOD01wJxFzTLiDspuExKFo=/300x200/filters:fixed_height(100,100):origin()/pre00/9e58/th/pre/f/2018/162/c/4/devil_may_cry_5_icon_by_kiramaru_kun-dce3hw4.png")); //Not my Image
+        primaryStage.setOnCloseRequest(t -> {
+            Platform.exit();
+            System.exit(0);
+        });
     }
 
 

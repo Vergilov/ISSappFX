@@ -1,4 +1,4 @@
-package issFX.datamodel;
+package issfx.datamodel;
 
 import java.io.*;
 import java.net.URL;
@@ -8,7 +8,7 @@ public class ConnectionWithJSON {
     private BufferedReader in;
 
 
-    public ConnectionWithJSON() throws Exception {
+    public ConnectionWithJSON() throws IOException {
         this.in = new BufferedReader(new InputStreamReader(url.openStream()));
     }
 

@@ -1,10 +1,11 @@
-package issFX;
+package issfx;
 
-import issFX.datamodel.ISSCheck;
-import issFX.datamodel.JSONCreator;
-import issFX.datamodel.JSONDataOutput;
+import issfx.datamodel.ISSCheck;
+import issfx.datamodel.JSONCreator;
+import issfx.datamodel.JSONDataOutput;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
@@ -28,12 +29,12 @@ public class Controller {
     @FXML
     private TextArea resultTextArea;
     @FXML
-    private javafx.scene.control.Button closeButton;
+    private Label runningLabel;
 
     private ISSCheck issCheck = new ISSCheck();
 
     private Thread thread = newThread();
-    public volatile boolean stopThread = false;
+    private volatile boolean stopThread = false;
     private static final Logger LOGGER = Logger.getLogger(Controller.class.getName());
 
     @FXML
@@ -61,6 +62,7 @@ public class Controller {
     public void stopThreadButton() {
         if (!stopThread) {
             stopThread = true;
+            runningLabel.setText("Stop");
         }
     }
 
@@ -69,10 +71,11 @@ public class Controller {
             stopThread = false;
             thread = newThread();
             thread.start();
+            runningLabel.setText("Start");
         }
     }
 
-    public Thread newThread() {
+    private Thread newThread() {
         Thread t = new Thread(() -> {
             while (!stopThread) {
                 Platform.runLater(() -> {
@@ -96,7 +99,7 @@ public class Controller {
                 try {
                     Thread.sleep(5000);
                 } catch (InterruptedException ex) {
-                    LOGGER.log(Level.SEVERE, "Message: ", ex);
+                    LOGGER.log(Level.WARNING, "Caution! : ", ex);
                 }
             }
         });
@@ -105,8 +108,7 @@ public class Controller {
 
     @FXML
     private void closeButtonAction() {
-        Stage stage = (Stage) closeButton.getScene().getWindow();
-        stage.close();
+        Platform.exit();
     }
 
     public void saveButtonAction() throws IOException {

@@ -1,4 +1,4 @@
-package issFX.datamodel;
+package issfx.datamodel;
 
 import java.util.Date;
 

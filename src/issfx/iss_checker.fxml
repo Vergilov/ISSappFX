@@ -9,7 +9,7 @@
 <?import javafx.scene.paint.LinearGradient?>
 <?import javafx.scene.paint.Stop?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="issFX.Controller">
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="issfx.Controller">
     <children>
         <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
             <children>
@@ -77,6 +77,7 @@
                </textFill></Label>
                 <Button fx:id="saveButton" blendMode="EXCLUSION" layoutX="617.0" layoutY="328.0" mnemonicParsing="false" onAction="#saveButtonAction" prefHeight="25.0" prefWidth="90.0" text="Save to File" />
                 <Button fx:id="closeButton" blendMode="EXCLUSION" layoutX="787.0" layoutY="328.0" mnemonicParsing="false" onAction="#closeButtonAction" prefHeight="25.0" prefWidth="70.0" text="Exit" />
+            <Label fx:id="runningLabel" layoutX="538.0" layoutY="14.0" text="Running" />
             </children>
         </AnchorPane>
     </children>
