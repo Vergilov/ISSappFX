@@ -1,19 +1,25 @@
 package issFX.datamodel;
 
+import issFX.Controller;
 import org.json.JSONObject;
-
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 public interface JSONCreator {
+    Logger LOGGER = Logger.getLogger(Controller.class.getName());
 
     static String JSONasString() throws Exception {
         ConnectionWithJSON json = new ConnectionWithJSON();
-        Scanner scan = new Scanner(json.getIn());
         String string = "";
-        while (scan.hasNext()) {
-            string += scan.nextLine();
+        try (Scanner scan = new Scanner(json.getIn())) {
+            while (scan.hasNext()) {
+                string += scan.nextLine();
+            }
+        } catch (Exception ex) {
+            LOGGER.log(Level.FINE, "Message: ", ex);
         }
-        scan.close();
         return string;
     }
 
@@ -28,11 +34,14 @@ public interface JSONCreator {
     }
 
     static boolean isOnline(JSONObject obj) {
-        if (!obj.getString("message").equals("success")) {
-            System.out.println("Something wrong!");
-            return false;
+        boolean isOnline = true;
+        try {
+            if (!obj.getString("message").equals("success")) {
+                isOnline= false;
+            }
+        } catch (Exception ex){
+            LOGGER.log( Level.FINE, "Message: ", ex );
         }
-        return true;
+        return isOnline;
     }
-
 }

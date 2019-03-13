@@ -6,35 +6,77 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="issFX.Controller">
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="issFX.Controller">
     <children>
         <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
             <children>
-                <Label layoutX="15.0" layoutY="135.0" prefHeight="27.0" prefWidth="78.0" text="Current Speed"/>
-                <Label layoutX="15.0" layoutY="170.0" text="Current Latitude"/>
-                <Label layoutX="15.0" layoutY="205.0" text="Current Longtitude"/>
-                <Label layoutX="15.0" layoutY="115.0" text="Connection Status"/>
-                <Label layoutX="15.0" layoutY="90.0" text="Current data from ISS:"/>
-                <Label layoutX="15.0" layoutY="240.0" text="Distance from start"/>
-                <Button layoutX="555.0" layoutY="50.0" mnemonicParsing="false" text="Stop Recording"
-                        onAction="#stopThreadButton"/>
-                <Button layoutX="450.0" layoutY="50.0" mnemonicParsing="false" text="Start Recording"
-                        onAction="#startThreadButton"/>
-                <Button layoutX="14.0" layoutY="280.0" mnemonicParsing="false" text="Add Current data of ISS"
-                        onAction="#addDataToArrayListButton"/>
-                <TextField fx:id="currentSpeedTextField" disable="true" layoutX="120.0" layoutY="138.0" prefHeight="0.0"
-                           prefWidth="100.0"/>
-                <TextField fx:id="currentLatitudeTextField" disable="true" layoutX="120.0" layoutY="170.0"
-                           prefHeight="3.0" prefWidth="100.0"/>
-                <TextField fx:id="distanceFromStartTextField" disable="true" layoutX="120.0" layoutY="240.0"
-                           prefHeight="10.0" prefWidth="100.0"/>
-                <TextField fx:id="currentLongtitudeTextField" disable="true" layoutX="120.0" layoutY="205.0"
-                           prefHeight="26.0" prefWidth="100.0"/>
-                <TextArea fx:id="resultTextArea" layoutX="269.0" layoutY="96.0" prefHeight="200.0" prefWidth="600.0"/>
-                <Label layoutX="266.0" layoutY="72.0" text="Result of Arraylist:"/>
-                <Label fx:id="statusLayout" layoutX="156.0" layoutY="115.0" text="off/on"/>
+                <Label layoutX="15.0" layoutY="135.0" prefHeight="27.0" prefWidth="78.0" text="Latest Speed">
+               <textFill>
+                  <LinearGradient cycleMethod="REFLECT" endX="1.0" endY="1.0" startX="1.0" startY="0.5194174757281553">
+                     <stops>
+                        <Stop color="#0094b1" />
+                        <Stop color="#18ab42" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </textFill></Label>
+                <Label layoutX="15.0" layoutY="170.0" text="Latest  Latitude">
+               <textFill>
+                  <LinearGradient cycleMethod="REFLECT" endX="1.0" endY="1.0" startX="1.0" startY="0.5194174757281553">
+                     <stops>
+                        <Stop color="#0094b1" />
+                        <Stop color="#18ab42" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </textFill></Label>
+                <Label layoutX="15.0" layoutY="205.0" text="Latest  Longitude">
+               <textFill>
+                  <LinearGradient cycleMethod="REFLECT" endX="1.0" endY="1.0" startX="1.0" startY="0.5194174757281553">
+                     <stops>
+                        <Stop color="#0094b1" />
+                        <Stop color="#18ab42" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </textFill></Label>
+                <Label layoutX="15.0" layoutY="90.0" text="Current data from ISS:">
+               <textFill>
+                  <LinearGradient cycleMethod="REFLECT" endX="1.0" endY="1.0" startX="1.0" startY="0.5194174757281553">
+                     <stops>
+                        <Stop color="#0094b1" />
+                        <Stop color="#18ab42" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </textFill></Label>
+                <Label layoutX="15.0" layoutY="240.0" text="Latest from start">
+               <textFill>
+                  <LinearGradient cycleMethod="REFLECT" endX="1.0" endY="1.0" startX="1.0" startY="0.5194174757281553">
+                     <stops>
+                        <Stop color="#0094b1" />
+                        <Stop color="#18ab42" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </textFill></Label>
+                <Button blendMode="EXCLUSION" layoutX="555.0" layoutY="50.0" mnemonicParsing="false" onAction="#stopThreadButton" prefHeight="25.0" text="Stop Recording" />
+                <Button blendMode="EXCLUSION" layoutX="450.0" layoutY="50.0" mnemonicParsing="false" onAction="#startThreadButton" prefHeight="25.0" text="Start Recording" />
+                <Button blendMode="EXCLUSION" layoutX="14.0" layoutY="280.0" mnemonicParsing="false" onAction="#addDataToArrayListButton" prefHeight="25.0" text="Add current data ISS" />
+                <TextField fx:id="currentSpeedTextField" editable="false" layoutX="120.0" layoutY="138.0" prefHeight="0.0" prefWidth="100.0" />
+                <TextField fx:id="currentLatitudeTextField" editable="false" layoutX="120.0" layoutY="170.0" prefHeight="3.0" prefWidth="100.0" />
+                <TextField fx:id="distanceFromStartTextField" editable="false" layoutX="120.0" layoutY="240.0" prefHeight="10.0" prefWidth="100.0" />
+                <TextField fx:id="currentLongitudeTextField" editable="false" layoutX="120.0" layoutY="205.0" prefHeight="26.0" prefWidth="100.0" />
+                <TextArea fx:id="resultTextArea" layoutX="269.0" layoutY="96.0" prefHeight="200.0" prefWidth="600.0" />
+                <Label layoutX="266.0" layoutY="72.0" text="Result of Arraylist:">
+               <textFill>
+                  <LinearGradient cycleMethod="REFLECT" endX="1.0" endY="1.0" startX="1.0" startY="0.5194174757281553">
+                     <stops>
+                        <Stop color="#0094b1" />
+                        <Stop color="#18ab42" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </textFill></Label>
+                <Button fx:id="saveButton" blendMode="EXCLUSION" layoutX="617.0" layoutY="328.0" mnemonicParsing="false" onAction="#saveButtonAction" prefHeight="25.0" prefWidth="90.0" text="Save to File" />
+                <Button fx:id="closeButton" blendMode="EXCLUSION" layoutX="787.0" layoutY="328.0" mnemonicParsing="false" onAction="#closeButtonAction" prefHeight="25.0" prefWidth="70.0" text="Exit" />
             </children>
         </AnchorPane>
     </children>

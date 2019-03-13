@@ -4,8 +4,7 @@ import java.util.Date;
 
 public interface DataConventer {
     static Date epochConventer(Long date) {
-        Date expiry = new Date(date * 1000);
-        return expiry;
+        return new Date(date * 1000);
     }
 
     static double differenceTime(Date d1, Date d2) {

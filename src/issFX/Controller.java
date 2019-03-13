@@ -8,12 +8,22 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 public class Controller {
     @FXML
     private TextField distanceFromStartTextField;
     @FXML
-    private TextField currentLongtitudeTextField;
+    private TextField currentLongitudeTextField;
     @FXML
     private TextField currentSpeedTextField;
     @FXML
@@ -21,26 +31,23 @@ public class Controller {
     @FXML
     private TextArea resultTextArea;
     @FXML
-    private Label statusLayout;
+    private javafx.scene.control.Button closeButton;
+    @FXML
+    private Label currentTimeLabel;
 
     private ISSCheck issCheck = new ISSCheck();
-    private boolean running = true;
-    private Thread t = newThread();
 
+    private Thread thread = newThread();
+    public volatile boolean stopThread = false;
+    private static final Logger LOGGER = Logger.getLogger(Controller.class.getName());
 
+    @FXML
     public void initialize() {
         resultTextArea.clear();
         resultTextArea.setEditable(false);
-        statusLayout.setText("Online");
-        t.setDaemon(true);
-        if (running) {
-            t.start();
-        } else {
-            try {
-                t.wait();
-            } catch (InterruptedException e) {
-            }
-        }
+        thread.setDaemon(true);
+        thread.start();
+
     }
 
 
@@ -57,25 +64,28 @@ public class Controller {
     }
 
     public void stopThreadButton() {
-        t.interrupt();
+        if (!stopThread) {
+            stopThread = true;
+        }
     }
 
     public void startThreadButton() {
-        if (!t.isAlive()) {
-            t = newThread();
-            t.start();
+        if (stopThread) {
+            stopThread = false;
+            thread = newThread();
+            thread.start();
         }
     }
 
     public Thread newThread() {
         Thread t = new Thread(() -> {
-            while (true) {
+            while (!stopThread) {
                 Platform.runLater(() -> {
                     try {
                         resultTextArea.clear();
                         issCheck.addJSONtoArray();
                         currentLatitudeTextField.setText(JSONDataOutput.getLatitude(JSONCreator.buildJSON()).toString());
-                        currentLongtitudeTextField.setText(JSONDataOutput.getLongitude(JSONCreator.buildJSON()).toString());
+                        currentLongitudeTextField.setText(JSONDataOutput.getLongitude(JSONCreator.buildJSON()).toString());
                         currentSpeedTextField.setText(issCheck.calculateSpeedFromLastTwoPoints());
                         distanceFromStartTextField.setText(issCheck.calculateOverallDistance());
                         int count = 0;
@@ -84,18 +94,40 @@ public class Controller {
                             count++;
                         }
                         resultTextArea.setEditable(false);
-                        wait();
-                    } catch (Exception e) {
-
+                    } catch (Exception ex) {
+                        LOGGER.log(Level.SEVERE, "Error: ", ex);
                     }
                 });
                 try {
                     Thread.sleep(5000);
                 } catch (InterruptedException ex) {
-                    break;
+                    LOGGER.log(Level.SEVERE, "Message: ", ex);
                 }
             }
         });
         return t;
+    }
+
+    @FXML
+    private void closeButtonAction() {
+        Stage stage = (Stage) closeButton.getScene().getWindow();
+        stage.close();
+    }
+
+    public void saveButtonAction() throws IOException {
+        FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter extFilter =
+                new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
+        fileChooser.getExtensionFilters().add(extFilter);
+        Stage stage = new Stage();
+        File file = fileChooser.showSaveDialog(stage);
+        FileWriter fileWriter = new FileWriter(file);
+        try {
+            fileWriter.write(resultTextArea.getText());
+        } catch (IOException ex) {
+            LOGGER.log(Level.FINE, "Message: ", ex);
+        } finally {
+            fileWriter.close();
+        }
     }
 }

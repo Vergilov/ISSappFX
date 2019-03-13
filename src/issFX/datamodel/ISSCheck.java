@@ -2,10 +2,7 @@ package issFX.datamodel;
 
 import org.json.JSONObject;
 
-import java.io.*;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -17,17 +14,19 @@ public class ISSCheck {
     }
 
     public String calculateSpeedFromLastTwoPoints() {
-        JSONObject oneBeforeLastJSONObject = createJSONOBject(arrayList.get(arrayList.size() - 2));
-        JSONObject lastJSONObject = createJSONOBject(this.arrayList.get(arrayList.size() - 1));
+        int result = 0;
+        if (arrayList.size() > 1) {
+            JSONObject oneBeforeLastJSONObject = createJSONOBject(arrayList.get(arrayList.size() - 2));
+            JSONObject lastJSONObject = createJSONOBject(this.arrayList.get(arrayList.size() - 1));
 
-        double oneBeforeLastLatidue = JSONDataOutput.getLatitude(oneBeforeLastJSONObject);
-        double oneBeforeLastLongtitude = JSONDataOutput.getLongitude(oneBeforeLastJSONObject);
-        double lastLatitude = JSONDataOutput.getLatitude(lastJSONObject);
-        double lastLongtitude = JSONDataOutput.getLongitude(lastJSONObject);
-        Date oneBeforeLastDate = DataConventer.epochConventer(JSONDataOutput.getTimestamp(oneBeforeLastJSONObject));
-        Date lastDate = DataConventer.epochConventer(JSONDataOutput.getTimestamp(lastJSONObject));
-        int result = (int) ((distance(lastLatitude, oneBeforeLastLatidue, lastLongtitude, oneBeforeLastLongtitude)) / (DataConventer.differenceTime(oneBeforeLastDate, lastDate)));
-
+            double oneBeforeLastLatidue = JSONDataOutput.getLatitude(oneBeforeLastJSONObject);
+            double oneBeforeLastLongtitude = JSONDataOutput.getLongitude(oneBeforeLastJSONObject);
+            double lastLatitude = JSONDataOutput.getLatitude(lastJSONObject);
+            double lastLongtitude = JSONDataOutput.getLongitude(lastJSONObject);
+            Date oneBeforeLastDate = DataConventer.epochConventer(JSONDataOutput.getTimestamp(oneBeforeLastJSONObject));
+            Date lastDate = DataConventer.epochConventer(JSONDataOutput.getTimestamp(lastJSONObject));
+            result = (int) ((distance(lastLatitude, oneBeforeLastLatidue, lastLongtitude, oneBeforeLastLongtitude)) / (DataConventer.differenceTime(oneBeforeLastDate, lastDate)));
+        }
         return "" + result; // distance/ diffrenceTime
     }
 
@@ -76,52 +75,6 @@ public class ISSCheck {
 
     public void addJSONtoArray() throws Exception {
         arrayList.add(JSONCreator.buildJSON().toString());
-    }
-
-
-    public void backupToFile() throws Exception {
-        ConnectionWithJSON connectionWithJSON = new ConnectionWithJSON();
-        File desktop = new File(System.getProperty("user.home"), "/Desktop/ISS/Backup");
-        if (!desktop.exists()) {
-            desktop.mkdirs();
-        }
-        File output = new File(desktop.getAbsolutePath(), "ISSBackup.json");
-        PrintWriter pw = new PrintWriter(new FileWriter(output, true));
-
-        try {
-            LineNumberReader reader = new LineNumberReader(connectionWithJSON.getIn());
-            String inputLine;
-            while ((inputLine = reader.readLine()) != null) {
-                pw.println(inputLine);
-            }
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        } finally {
-            pw.close();
-            connectionWithJSON.getIn().close();
-        }
-    }
-
-
-    public void saveToFile() throws Exception {
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
-        File desktop = new File(System.getProperty("user.home"), "/Desktop/ISS/SavedLog");
-        if (!desktop.exists()) {
-            desktop.mkdir();
-        }
-        String time = (timeStamp + "ISS.txt");
-        File output = new File(desktop, time);
-        PrintWriter pw = new PrintWriter(output);
-        try {
-            for (String inputLine : arrayList) {
-                pw.println(inputLine);
-            }
-            System.out.println("Created file: " + output.getAbsolutePath());
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        } finally {
-            pw.close();
-        }
     }
 
     public List<String> getArrayList() {
